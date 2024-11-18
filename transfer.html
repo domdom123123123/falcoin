@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transfer Money</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f9;
+        }
+        .container {
+            text-align: center;
+            background: navy;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 400px;
+        }
+        input {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 5px;
+            background: #007bff;
+            border: none;
+            border-radius: 20px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+	        <img src="images/FalCoins740.png" alt="Local Image Example" style="width: 300px; height: auto;">
+
+        <h1>Transfer Money</h1>
+        <input type="text" id="recipient" placeholder="Enter Recipient Username" />
+        <input type="number" id="transferAmount" placeholder="Enter Amount" />
+        <button onclick="processTransfer()">Transfer</button>
+        <button onclick="goBack()">Back</button>
+    </div>
+
+    <script>
+        const currentUser = localStorage.getItem('currentUser');
+        const userData = JSON.parse(localStorage.getItem(currentUser));
+
+        function processTransfer() {
+            const recipient = document.getElementById('recipient').value;
+            const amount = parseFloat(document.getElementById('transferAmount').value);
+
+            if (!recipient || isNaN(amount) || amount <= 0) {
+                alert('Please enter valid details.');
+                return;
+            }
+
+            if (amount > userData.balance) {
+                alert('Insufficient balance!');
+                return;
+            }
+
+            const recipientData = JSON.parse(localStorage.getItem(recipient));
+            if (!recipientData) {
+                alert('Recipient not found!');
+                return;
+            }
+
+            // Deduct from current user and add to recipient
+            userData.balance -= amount;
+            recipientData.balance = (recipientData.balance || 0) + amount;
+
+            userData.transactions.push(`Transferred ${amount} PHP to ${recipient}`);
+            recipientData.transactions.push(`Received ${amount} PHP from ${userData.name}`);
+
+            // Save updated data to localStorage
+            localStorage.setItem(currentUser, JSON.stringify(userData));
+            localStorage.setItem(recipient, JSON.stringify(recipientData));
+
+            alert(`Transferred ${amount} PHP to ${recipient} successfully!`);
+            window.location.href = 'index.html';
+        }
+
+        function goBack() {
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>
