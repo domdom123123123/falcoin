@@ -14,34 +14,50 @@
             margin: 0;
             background-color: #f4f4f9;
         }
-        .container {
+       .container {
             text-align: center;
             background: navy;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             width: 90%;
+            height: 90vh;
             max-width: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-image: url('images/TransferForm copy.jpg');
+            background-size: 100% 100%;
+            background-position: center;
+            background-repeat: no-repeat;
         }
-        input {
+        .container h1 {
+            margin-bottom: 20px;
+        }
+        .container p {
+            font-size: 1.2rem;
+            margin: 15px 0;
+        }
+        .container input {
             width: 80%;
             padding: 10px;
             margin: 10px 0;
             border: 1px solid #ccc;
             border-radius: 5px;
         }
-        button {
-            width: 80%;
+        .container button {
+            width: 100%;
             padding: 10px;
             margin: 10px 5px;
             background: #007bff;
             border: none;
-            border-radius: 20px;
+            border-radius: 5px;
             color: white;
             font-size: 16px;
             cursor: pointer;
         }
-        button:hover {
+        .container button:hover {
             background: #0056b3;
         }
     </style>
