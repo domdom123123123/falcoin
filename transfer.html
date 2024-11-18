@@ -39,12 +39,24 @@
             font-size: 1.2rem;
             margin: 15px 0;
         }
-        .container input {
+        .input-group {
+            display: flex;
+            align-items: center;
             width: 80%;
+        }
+        .input-group input {
+            flex: 1;
             padding: 10px;
             margin: 10px 0;
             border: 1px solid #ccc;
             border-radius: 5px;
+        }
+        .input-group span {
+            padding: 10px;
+            background-color: #ccc;
+            border-radius: 5px 0 0 5px;
+            border: 1px solid #ccc;
+            margin-right: -1px; /* To connect the span and input seamlessly */
         }
         .container button {
             width: 100%;
@@ -64,10 +76,13 @@
 </head>
 <body>
     <div class="container">
-	        <img src="image/FalCoins740.png" alt="Local Image Example" style="width: 300px; height: auto;">
+        <img src="image/FalCoins740.png" alt="Local Image Example" style="width: 300px; height: auto;">
 
         <h1>Transfer Money</h1>
-        <input type="text" id="recipient" placeholder="+63 Enter Recipient Username" />
+        <div class="input-group">
+            <span>+63</span>
+            <input type="text" id="recipient" placeholder="Enter Recipient Username" />
+        </div>
         <input type="number" id="transferAmount" placeholder="Enter Amount" />
         <button onclick="processTransfer()">Transfer</button>
         <button onclick="goBack()">Back</button>
