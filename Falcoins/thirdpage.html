@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            color: white;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+            background: navy;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            height: 90vh;
+            max-width: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-image: url('images/TransferForm copy.jpg');
+            background-size: 100% 100%;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        .container h1 {
+            margin-bottom: 20px;
+        }
+        .container p {
+            font-size: 1.2rem;
+            margin: 15px 0;
+        }
+        .container input {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .container button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 5px;
+            background: #007bff;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .container button:hover {
+            background: #0056b3;
+        }
+        #transactions {
+            max-height: 200px;
+            overflow-y: auto;
+            text-align: left;
+            margin: 20px 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        #transactions ul {
+            list-style: none;
+            padding: 0;
+        }
+        #transactions li {
+            padding: 5px 0;
+            border-bottom: 1px solid #ddd;
+        }
+        #transactions li:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="images/FalCoins740.png" alt="Local Image Example" style="width: 300px; height: auto;">
+        <h1>Hi, <span id="username"></span>!</h1>
+        <p>Your Balance: <span id="balance">0</span> PHP</p>
+        <div>
+            <input type="number" id="amount" placeholder="Enter Amount" />
+            <button onclick="deposit()">Deposit</button>
+            <button onclick="redirectToTransfer()">Transfer</button>
+        </div>
+        <div id="transactions">
+            <h3>Transaction History</h3>
+            <ul id="transactionList"></ul>
+        </div>
+        <button onclick="logout()">Logout</button>
+    </div>
+
+    <script>
+        const currentUser = localStorage.getItem('currentUser');
+        if (!currentUser) {
+            alert('No user logged in! Redirecting to login page.');
+            window.location.href = 'login.html';
+        }
+
+        const userData = JSON.parse(localStorage.getItem(currentUser));
+        document.getElementById('username').textContent = userData.name;
+        document.getElementById('balance').textContent = userData.balance || 0;
+
+        const transactionList = document.getElementById('transactionList');
+        userData.transactions = userData.transactions || [];
+        function loadTransactions() {
+            transactionList.innerHTML = '';
+            userData.transactions.forEach((transaction) => {
+                const li = document.createElement('li');
+                li.textContent = transaction;
+                transactionList.appendChild(li);
+            });
+        }
+        loadTransactions();
+
+        function deposit() {
+            const amount = parseFloat(document.getElementById('amount').value);
+            if (isNaN(amount) || amount <= 0) {
+                alert('Please enter a valid amount!');
+                return;
+            }
+            userData.balance = (userData.balance || 0) + amount;
+            userData.transactions.push(`Deposited ${amount} PHP`);
+            localStorage.setItem(currentUser, JSON.stringify(userData));
+            document.getElementById('balance').textContent = userData.balance;
+            document.getElementById('amount').value = '';
+            loadTransactions();
+            alert(`Deposited ${amount} PHP successfully!`);
+        }
+
+        function redirectToTransfer() {
+            window.location.href = 'transfer.html';
+        }
+
+        function logout() {
+            localStorage.removeItem('currentUser');
+            window.location.href = 'login.html';
+        }
+    </script>
+</body>
+</html>

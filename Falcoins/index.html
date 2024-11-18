@@ -1,0 +1,65 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title> </title>
+    <style>
+    body {
+	
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f9;
+    }
+
+    .container {
+        text-align: center;
+        background: navy;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        width: 90%;
+        height: 90vh; /* Adjust height to keep the container centered */
+        max-width: 400px;
+        display: flex;
+        flex-direction: column; /* Stack elements vertically */
+        justify-content: center; /* Vertically center content (buttons) */
+        align-items: center; /* Horizontally center content */
+        background-image: url('images/FalCoins740.png'); /* Background image */
+        background-size: cover; /* Scale the image to cover the container */
+        background-position: center; /* Center the image */
+        background-repeat: no-repeat; /* Do not repeat the image */
+    }
+
+    button {
+        width: 60%;
+        padding: 15px;
+        margin: 20px 0;
+        border: none;
+        border-radius: 50px;
+        font-size: 16px;
+        cursor: pointer;
+        color: white;
+        background-color: #007bff;
+    }
+
+    button:hover {
+        background-color: #0056b3;
+    }
+    </style>
+    
+</head>
+<body>
+ <br><br><br><br><br>
+    <div class="container">    <img src="image/FalCoins740.png" alt="Local Image Example" style="width: 300px; height: auto;"><br><br><br><br><br>
+        <!-- Buttons -->
+        <button onclick="location.href='login.html'">Login</button>
+		<h5>or</h5>
+        <button onclick="location.href='signup.html'">Signup</button>
+    </div>
+</body>
+</html>
